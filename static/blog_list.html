@@ -1,0 +1,14 @@
+{% extends "inner.html" %}
+
+
+{% block content %}
+
+{% for post in posts %}
+<br>
+Author: {{ post.author }}<br><br>
+{{ post.title }}<br><br>
+{{ post.content }}<br><br>
+____________<br><br><br>
+{% endfor %}
+
+{% endblock %}

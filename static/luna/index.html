@@ -1,0 +1,163 @@
+{% extends 'luna/thebase.html' %}
+
+{% block content %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="view-header">
+                            <div class="pull-right text-right" style="line-height: 14px">
+                                <small>Downline Space<br>Dashboard<br> <span class="c-white">Beta</span></small>
+                            </div>
+                            <div class="header-icon">
+                                <i class="pe page-header-icon pe-7s-shield"></i>
+                            </div>
+                            <div class="header-title">
+                                <h3 class="m-b-xs">Let's hit it {{ member.firstname }} {{ member.lastname }}!</h3>
+                                <small>
+                                    {{ quote }}
+                                </small>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-2 col-xs-6">
+                        <div class="panel panel-filled">
+
+                            <div class="panel-body">
+                                <h2 class="m-b-none">
+                                    {% if customerpoints %}{{ customerpoints }}{% else %} N/A {% endif %}
+                                </h2>
+                                <div class="small">Customer Points</div>
+                                 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-6">
+                        <div class="panel panel-filled">
+                            <div class="panel-body">
+                                <h2 class="m-b-none">
+                                    {{ personstotal }} 
+                                </h2>
+                                <div class="small">Total Contacts</div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-6">
+                        <div class="panel panel-filled">
+                            <div class="panel-body">
+                                   <h2> {{ totalmobileservices }}  </h2>
+                                <div class="small">Total mobile services recorded</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-6">
+                        <div class="panel panel-filled">
+                            <div class="panel-body">
+                                   <h2> {{ nomobile }}  </h2>
+                                <div class="small">Contacts with no mobile services!</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+
+           
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h1 class="m-t-md m-b-xs" style="margin-top: 30px">
+                                    <i class="pe pe-7s-global text-warning"> </i>
+                                    24,168,303 <span class="slight"><i class="fa fa-play fa-rotate-270 text-warning"> </i></span>
+                                </h1>
+                                <div class="small">
+                                    <span class="c-white">Total population of Australia</span> all of these people need electricty, internet, phone and security.
+                                </div>
+                                <div class="m-t-sm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <small class="c-white">
+                                            </small>
+                                            <div class="sparkline3"></div>
+                                            <small class="slight">
+                                            </small>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table  class="table">
+                                        <thead>
+                                            <div class="header-title">
+                                                {% if services %}
+                                <h3 class="m-b-xs">Upcoming Expires</h3>
+                            </div>
+                        </div>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Provider</th>
+                                            <th>Phone</th>
+                                            <th>Service Type</th>
+                                            <th>Monthly Cost</th>
+                                            <th>Expires</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for service in services %}
+                                            {% for ms in service %}
+                                        <tr>
+                                            <td> {{ ms.customer.name }}</td>
+                                            <td> {{ ms.provider }}</td>
+                                            <td>{{ ms.phone }}</td>
+                                            <td> {{ ms.servicetype }} </td>
+                                            <td> ${{ ms.monthlycost }} </td>
+                                            <td> {{ ms.expiry }}</td>
+                                            <td><a href="{% url 'detail_person' id=ms.customer.id %}" class="btn btn-default btn-xs active">View</a></td>
+                                        </tr>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% else %}
+                                    <h3 class="m-b-xs">No expiries in the next month!</h3>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                  <!--       <div class="panel panel-b-accent m-t-sm">
+                            <div class="panel-body text-center p-m">
+                                <h2 class="font-light">
+                                    +280k downloads
+                                </h2>
+                                <small>New downloads from the last month.</small>
+                                <br/>
+                                120,312 <span class="slight"><i class="fa fa-play fa-rotate-270 c-white"> </i> -22%</span>
+                                <div class="sparkline7 m-t-xs"></div>
+                            </div>
+                        </div>
+                    </div>
+ -->
+           
+    </section>
+
+    {% endblock %}

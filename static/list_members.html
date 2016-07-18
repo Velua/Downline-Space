@@ -1,0 +1,38 @@
+{% extends 'inner.html' %}
+
+
+{% block content %}
+
+
+
+
+
+ <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Business ID</th>
+                <th>Position</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Customer Points</th>
+              </tr>
+            </thead>
+            <tbody>
+            	{% for member in members %}
+              <tr>
+                <td> {{ member.businessid }} </td>
+                <td> {{ member.position }}</td>
+                <td></td>
+                <td></td>
+                <td>{{ member }}</td>
+                <td> {{ member.customerpoints }} </td>
+              </tr>
+              {% endfor %}
+
+
+
+
+
+{% endblock %}

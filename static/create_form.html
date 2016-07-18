@@ -1,0 +1,61 @@
+{% extends 'luna/thebase.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+<div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-note2"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>{{ title }}</h3>
+                            <small>
+                                {{ notes }}
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+
+						<div class="form-group">
+
+
+							<form method='POST' action=''> {% csrf_token %}
+
+							{{ form|crispy }}
+
+							<input type='submit' class="btn btn-primary" value='Save' />
+							</form></div>
+						</div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'inner.html' %}
+
+
+
+{% block content %}
+
+
+
+
+ <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Lead</th>
+                <th>Provider</th>
+                <th>phone</th>
+                <th>servicetype</th>
+                <th>monthlycost</th>
+                <th>expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+            	{% for ms in mobileservices %}
+              <tr>
+                <td> {{ ms.customer }} </td>
+                <td> {{ ms.provider }}</td>
+                <td>{{ ms.phone }}</td>
+                <td> {{ ms.servicetype }} </td>
+                <td> {{ ms.monthlycost }} </td>
+				<td> {{ ms.expiry }} </td>
+              </tr>
+              {% endfor %}
+
+
+{% endblock %}

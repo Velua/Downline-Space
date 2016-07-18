@@ -1,0 +1,248 @@
+{% load staticfiles %}
+{% load static from staticfiles %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>LUNA | Responsive Admin Theme</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="{% static 'luna/vendor/fontawesome/css/font-awesome.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/vendor/animate.css/animate.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/vendor/bootstrap/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/vendor/datatables/datatables.min.css' %}"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="{% static 'luna/styles/pe-icons/pe-icon-7-stroke.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/styles/pe-icons/helper.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/styles/stroke-icons/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'luna/styles/style.css' %}">
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+    <!-- Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div id="mobile-menu">
+                    <div class="left-nav-toggle">
+                        <a href="#">
+                            <i class="stroke-hamburgermenu"></i>
+                        </a>
+                    </div>
+                </div>
+                <a class="navbar-brand" href="index.html">
+                    DOWNLINE
+                    <span>Beta</span>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <div class="left-nav-toggle">
+                    <a href="">
+                        <i class="stroke-hamburgermenu"></i>
+                    </a>
+                </div>
+               <!--  <form class="navbar-form navbar-left">
+                    <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">
+                </form> -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="{% url 'account_logout' %}" >Logout
+                        </a>
+                    </li>
+                    <li class=" profil-link">
+                        <a href="{% url 'update_member' %}">
+                            <span class="">My Profile</span>
+                            <img src="{% static "luna/images/profile.jpg" %}" class="img-circle" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End header-->
+
+    <!-- Navigation-->
+    <!-- Navigation-->
+    <aside class="navigation">
+        <nav>
+            <ul class="nav luna-nav">
+                <li class="nav-category">
+                    Main
+                </li>
+                <li class="active">
+                    <a href="{% url 'profile_home' %}">Dashboard</a>
+                </li>
+
+               
+                <li class="nav-category">
+                    Contacts
+                </li>
+                <li>
+                    <a href="{% url 'list_persons' %}">Everyone</a>
+                </li>
+
+                <li class="nav-category">
+                    Info
+                </li>
+                <li>
+                    <a href="https://downlinespace.zendesk.com/hc/en-us/requests/new" target="_blank">Support</a>
+                    <a href="http://ideas.downline.space/" target="_blank">Feedback</a>
+                </li>
+                
+                
+                <li class="nav-info">
+                    <i class="pe pe-7s-shield text-accent"></i>
+                    <div class="m-t-xs">
+                        <span class="c-white">Downline Space</span> developed by <a href="http://empire.systems">Empire Systems.</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <!-- End navigation-->
+
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>Table design<br>General<br> <span class="c-white">DataTables</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-albums"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Contacts</h3>
+                            <small>
+                                Your warm market.
+                            </small><br>
+                        </div>
+                    </div>
+                    <hr>
+
+                </div>
+            </div>
+                    <a href="{% url 'create_person' %}" class="btn btn-accent">New person</a>
+                    <a href="{% url 'importfacebookfriends' %}" class="btn btn-accent">Import Facebook friends</a>
+                </br>
+            <div class="row">
+
+                <div class="col-md-4">
+     
+                            
+                       
+
+                        </div>
+                    </div>
+                </div>
+        
+                    
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+
+                                <table id="tableExample3" class="table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Mobile</th>
+                                        <th>Email</th>
+                                        <th>Date entered</th>
+                                        <th>Last updated</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for person in persons %}
+                                    <tr>
+                                        <td><a href="{% url 'detail_person' id=person.id %}">{{ person.name}} </a></td>
+                                        <td>{{ person.mobile }}</td>
+                                        <td><a href="mailto:{{ person.email }}">{{ person.email }}<a/></td>
+                                        <td> {{ person.timestamp|naturaltime }} </td>
+                                        <td> {{ person.updated|naturaltime }}</td>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="{% static 'luna/vendor/pacejs/pace.min.js' %}"></script>
+<script src="{% static 'luna/vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'luna/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'luna/vendor/datatables/datatables.min.js' %}"></script>
+
+<!-- App scripts -->
+<script src="{% static 'luna/scripts/luna.js' %}"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#tableExample1').DataTable({
+            "dom": 't'
+        });
+
+        $('#tableExample2').DataTable({
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "lengthMenu": [ [6, 25, 50, -1], [6, 25, 50, "All"] ],
+            "iDisplayLength": 6,
+        });
+
+        $('#tableExample3').DataTable({
+            dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+            "lengthMenu": [ [100, 250, 500, -1], [100, 250, 500, "All"] ],
+            buttons: [
+                {extend: 'copy',className: 'btn-sm'},
+                {extend: 'csv',title: 'ExampleFile', className: 'btn-sm'},
+                {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                {extend: 'print',className: 'btn-sm'}
+            ]
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

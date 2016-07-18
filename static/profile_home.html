@@ -1,0 +1,47 @@
+{% extends 'inner.html' %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="jumbotron">
+        <h1>Hey Mr. {{ member.position }}!</h1>
+        <p> {{ quote }} </p>
+      </div>
+
+      
+
+	{{ service.customer }}<br>
+	{{ service.phone }}<br>
+	{{ service.expiry|naturalday }}
+
+
+
+      <br><br>
+
+
+
+
+
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            {% if services == "fe"  %} wtf
+            <div class="panel-heading">
+              <h3 class="panel-title">Upcoming plan expiries!</h3>
+            </div>
+            <div class="panel-body">
+            	{% for service in services %}
+                {% for ms in service.all %}
+                  {{ ms.customer }}'s {{ ms.phone }} expiries {{ ms.expiry|naturalday }}<br><br>
+                {% endfor %}
+              {% endfor %}
+            </div>
+            {% else %}
+              <div class="panel-heading">
+              <h3 class="panel-title">No upcoming expiries!</h3>
+            </div>
+            {% endif %}
+
+
+{% endblock %}

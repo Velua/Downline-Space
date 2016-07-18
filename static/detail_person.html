@@ -1,0 +1,416 @@
+{% extends 'luna/thebase.html' %}
+{% load humanize %}
+
+
+{% block content %}
+
+
+<!-- <h1> Profile</h1><br><br>
+Name: {{ person.firstname }} {{ person.lastname }}<br>
+Mobile: {{ person.mobile }}<br><br>
+
+<h1>Services</h1><br>
+
+<a href="{% url 'create_mobileservice' cust=person.id %}" class="btn btn-primary">Add Mobile</a>
+
+<h3>Mobile Service</h3>
+
+
+
+ <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Phone</th>
+                <th>Service type</th>
+                <th>Monthly Cost</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+            	{% for service in services %}
+              <tr>
+                <td> {{ service.provider }}</td>
+                <td>{{ service.phone }}</td>
+                <td> {{ service.servicetype }} </td>
+                <td> ${{ service.monthlycost }} </td>
+				        <td> {{ service.expiry }} ({{ service.expiry|naturalday }})</td>
+              </tr>
+
+              {% endfor %} -->
+
+
+ <div class="row m-t-sm">
+
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        {% if person.gender == "M" %}
+                                        <i class="pe pe-7s-user c-accent fa-3x"></i><i class="pe pe-7s-male c-accent fa-3x"></i>
+                                        {% elif person.gender == "F" %}
+                                        <i class="pe pe-7s-user c-accent fa-3x"></i><i class="pe pe-7s-female c-accent fa-3x"></i>
+                                        {% endif %}
+                                        <h2 class="m-t-xs m-b-none">
+                                            {{ person.name }} 
+                                        </h2><br>
+
+                                        {% if person.notes %}
+                                        {{ person.notes }}
+
+                                        {% else %}
+                                        There's no notes!
+
+                                        {% endif %}
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <table class="table small m-t-sm">
+                                        <tbody>
+<!--                                         <tr>
+                                            <td>
+                                                <strong class="c-white">0</strong> Active Service
+                                            </td>
+                                            <td>
+                                                <strong class="c-white">{{ activitycount }}</strong> Activities
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong class="c-white">{{ servicescount }}</strong> Services not documented
+                                            </td>
+ -->                                            <td>
+                                                Created: <strong class="c-white">{{ person.timestamp|naturaltime }}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+<!--                                             <td>
+                                                <strong class="c-white">{{ servicescount }}</strong> Documented Services
+                                            </td> -->
+                                            <td>
+                                                Last updated: <strong class="c-white">{{ person.updated|naturaltime }}</strong>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-3 m-t-sm">
+                                <span class="c-white">{% if person.mobile or person.email %}
+                                    Contact with {{ person.name }}
+                                    {% else %}
+                                    No contact information! {% endif %}
+                                </span>
+                                    <br>
+                                    {% if person.mobile %}
+                                    Mobile: {{ person.mobile }}<br>
+                                    {% endif %}
+                                    {% if person.email %}
+                                    <div class="btn-group m-t-sm">
+                                        <a href="mailto:{{ person.email }}" class="btn btn-accent btn-sm"><i class="fa fa-envelope"></i> {{ person.email }}</a>{% endif %}
+                                        {% if person.facebooklink %}
+                                        <a href="{{ person.facebooklink }}" target="_blank" class="btn btn-accent btn-sm"><i class="fa fa-facebook"></i> Facebook</a>{% endif %}
+                                    </div>
+                                    <div class="btn-group m-t-sm">
+                                        <a href="{% url 'update_person' id=person.id %}" class="btn btn-accent btn-sm"><i class="fa fa-cog"></i> Edit</a>
+                                    </div>
+                                    <div class="btn-group m-t-sm">
+                                        <a href="{% url 'delete_person' id=person.id %}" class="btn btn-danger btn-sm"><i class="fa fa-cog"></i> Delete</a>
+                                    </div><br>
+                                    <div class="btn-group m-t-sm">
+                                        <a href="{% url 'create_mobileservice' cust=person.id %}" {% if mobileservices %}class="btn btn-accent btn-sm">{% else %}class="btn btn-default btn-sm">{% endif %}<i class="pe-7s-phone"></i> Mobile</a>
+                                        <a href="{% url 'create_electricityservice' cust=person.id %}" {% if electricityservices %}class="btn btn-accent btn-sm">{% else %}class="btn btn-default btn-sm">{% endif %}<i class="pe-7s-light"></i> Electricity</a>
+                                        <a href="{% url 'create_broadbandservice' cust=person.id %}" {% if broadbandservices %}class="btn btn-accent btn-sm">{% else %}class="btn btn-default btn-sm">{% endif %}<i class="pe-7s-vector"></i> Broadband</a>
+                                        <a href="{% url 'create_phoneservice' cust=person.id %}" {% if phoneservices %}class="btn btn-accent btn-sm">{% else %}class="btn btn-default btn-sm">{% endif %}<i class="pe-7s-home"></i> Phone</a>
+                                        <a href="{% url 'create_securityservice' cust=person.id %}" {% if securityservices %}class="btn btn-accent btn-sm">{% else %}class="btn btn-default btn-sm">{% endif %}<i class="pe-7s-door-lock"></i> Security</a>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="panel">
+                        <div class="panel-body">
+                            {% if activitys %}<h4> Recent Activity{% else %}<h4>No activity{% endif %}  <a href="{% url 'create_activity' id=person.id %}" i class="fa fa-plus" aria-hidden="true"></i></a></h4>
+
+                            <div class="v-timeline vertical-container">
+
+
+{% for activity in activitys %}
+
+
+
+
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon">
+
+                                        {% if activity.typeofactivity == 'Call' %}
+                                        <i class="fa pe-7s-call"></i>
+                                        {% elif activity.typeofactivity == 'Business Opportunity Meeting' %}
+                                        <i class="fa fa-users"></i>
+                                        {% elif activity.typeofactivity == 'One To Ten' %}
+                                        <i class="fa fa-building-o"></i>
+                                        {% elif activity.typeofactivity == 'Meeting' %}
+                                        <i class="fa fa-briefcase"></i>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <small>{{ activity.timeofactivity|naturaltime }}</small> </span>
+
+                                            <h2>{{ activity.typeofactivity }}</h2>
+
+                                            <p>{{ activity.notes }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+{% endfor %}
+
+
+
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-body"> 
+                           <table class="table table-striped">
+
+                             {% if mobileservices.all %}
+                             <h4>Mobile</h4>
+                                <thead>
+                                <tr>
+                                    <th>Provider</th>
+                                    <th>Phone</th>
+                                    <th>Service Type</th>
+                                    <th>Monthly Cost</th>
+                                    <th>Expiry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  
+
+                                    {% for service in mobileservices %}
+                                      <tr>
+                                        <td> {{ service.provider }}</td>
+                                        <td>{{ service.phone }}</td>
+                                        <td> {{ service.servicetype }} </td>
+                                        <td> ${{ service.monthlycost }} </td>
+                                        <td> {{ service.expiry }} ({{ service.expiry|naturalday }})</td>
+                                        <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                      </tr>
+
+                                      {% endfor %}
+                                    {% else %}
+
+                                    No mobile services
+
+                                    {% endif %}
+                                </tr>
+                                
+
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+<table class="table table-striped">
+
+                             {% if electricityservices.all %}
+                             <h4>Electricity</h4>
+                                <thead>
+                                <tr>
+                                    <th>Provider</th>
+                                    <th>KW/h</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  
+
+                                    {% for service in electricityservices %}
+                                      <tr>
+                                        <td> {{ service.provider }}</td>
+                                        <td>{{ service.kwh }}</td>
+                                        <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                      </tr>
+
+                                      {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                
+
+
+                                </tbody>
+                            </table>
+
+
+<table class="table table-striped">
+
+                             {% if broadbandservices.all %}
+                             <h4>Broadband</h4>
+                                <thead>
+                                <tr>
+                                    <th>Provider</th>
+                                    <th>GB per month</th>
+                                    <th>Connection Type</th>
+                                    <th>Monthly Cost</th>
+                                    <th>Expiry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    {% for service in broadbandservices %}
+                                      <tr>
+                                        <td> {{ service.provider }}</td>
+                                        <td>{{ service.GBpermonth }}</td>
+                                        <td> {{ service.connectiontype }} </td>
+                                        <td> ${{ service.monthlycost }} </td>
+                                        <td> {{ service.expiry }} </td>
+                                        <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                      </tr>
+
+                                      {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                
+
+                                </tbody>
+                            </table>
+
+                    <table class="table table-striped">
+
+                             {% if phoneservices.all %}
+                             <h4>Phone</h4>
+                                <thead>
+                                <tr>
+                                    <th>Provider</th>
+                                    <th>Monthly Cost</th>
+                                    <th>Expiry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    {% for service in phoneservices %}
+                                      <tr>
+                                        <td> {{ service.provider }}</td>
+                                        <td>{{ service.monthlycost }}</td>
+                                        <td> {{ service.expiry }} </td>
+                                        <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                      </tr>
+
+                                      {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                
+
+                                </tbody>
+                            </table>
+
+<table class="table table-striped">
+
+                             {% if securityservices.all %}
+                             <h4>Security</h4>
+                                <thead>
+                                <tr>
+                                    <th>Provider</th>
+                                    <th>Monthly Cost</th>
+                                    <th>Expiry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    {% for service in securityservices %}
+                                      <tr>
+                                        <td> {{ service.provider }}</td>
+                                        <td>{{ service.monthlycost }}</td>
+                                        <td> {{ service.expiry }} </td>
+                                        <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                      </tr>
+
+                                      {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                
+
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+{% if person.streetno or person.streetaddress or person.suburb or person.state %}
+<div class="col-md-4">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Address
+                        </div>
+                        <div class="panel-body">
+
+
+                            <div class="bs-example">
+                                <address>
+                                    <strong>{{ person.name }} </strong><br>
+                                    {{ person.streetno }} {{ person.streetaddress }}<br>
+                                    {{ person.suburb }} {{ person.state }} {{ person.postcode }}<br>
+                                    {% if person.mobile %}<abbr title="Phone">P:</abbr> {{ person.mobile }} {% endif %}
+                                </address>
+                                {% if person.email %}
+                                <address>
+                                    <a href="mailto:{{ person.email }}">{{ person.email }}</a>
+                                </address>
+                                {% endif %}
+                            </div>
+{% endif %}
+
+                        </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'luna/thebase.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load static from staticfiles %}
+
+
+{% block content %}
+
+
+<div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-note2"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>{{ title }}</h3>
+                            <small>
+                                {{ notes }}
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+
+						<div class="form-group">
+<h1>Step 1</h1><br>
+Create or login to your Yahoo 7 mail account at <a href="https://login.yahoo.com" target="_blank">login.yahoo.com</a> <br><br>
+<h1>Step 2</h1>
+Go to the Contacts section.<br>
+<img src="{% static 'contactsection.png' %}"> <br><br>
+<h1>Step 3</h1><br>
+Select the actions butotn and select the Import button<br>
+<img src="{% static 'import.png' %}"> <br><br>
+<h1>Step 4</h1><br>
+Import your Facebook contacts<br>
+<h1>Step 5</h1><br>
+Confirm your Facebook contacts have downloaded & press the action buttons again, click on Print all <br>
+Select the options as per screen shot and select Print.
+<img src="{% static 'actions.png' %}"><br><br>
+Select the options as per screen shot and select Print.<br>
+<img src="{% static 'good.png' %}"> <br><br>
+<h1>Step 6</h1><br>
+Save the print as PDF and place into your downloads folder<br>
+<h1>Step 7</h1><br>
+Upload the PDF file below!<br>
+
+
+							<form method='POST' action='' enctype='multipart/form-data'> {% csrf_token %}
+
+							{{ form|crispy }}
+
+							<input type='submit' class="btn btn-primary" value='Save' />
+							</form></div>
+						</div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+{% endblock %}
